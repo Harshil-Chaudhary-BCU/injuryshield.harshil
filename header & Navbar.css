@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" -5;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+   cursor: url('../images/cursor arrow.png'), auto;
+   overflow-x: hidden; 
+}
+
+/* ---------------------- navbar ------------------ */
+
+.navbar{
+    width: 98vw;
+    margin: 1vh 1vw;
+    border-radius: 35px;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.navbar:hover{
+    box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.146);
+    scale: 1.001;
+}
+
+.nav-item a{
+    display: inline;
+    font-size: 2rem;
+    color: white;
+}
+
+.nav-item a:hover{
+    scale: 1.05;
+    color: #fd7d22c6;
+}
+
+.nav-item-1 a:visited{
+    color: #fd7d22c6;
+}
+
+.nav-item-2 a:visited{
+    text-decoration: underline;
+    color: #fd7d22c6;
+}
+
+.nav-item-3 a:visited{
+    text-decoration: underline;
+    color: #fd7d22c6;
+}
+
+/* ---------------------- scroll watcher ------------------ */
+
+.scroll-watcher{
+    height: 1vh;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    border-radius: 20px;
+    background-color: #fd7d22;
+    width: 100%;
+    scale: 0 1;
+    animation: scroll-tracker linear ;
+    transform-origin: left;
+    animation-timeline: scroll();
+  }
+  
+  @keyframes scroll-tracker{
+    to{scale: 1 1;}
+  }
+  

@@ -1,0 +1,166 @@
+/* ------------------------------------------- INTRO DESIGN -------------------------------------------- */
+section{
+    display: grid;
+    place-content: center;
+    width: 80vw;
+    min-height: 80vh;
+    margin: 5vh 10vw;
+}
+
+.intro{
+    display: grid;
+}
+
+.intro-text{
+    color: #fd7e22;
+    font-size: 1.5rem;
+}
+
+@media (min-width:768px){
+    .intro-text{
+        font-size: 2.2rem;
+    }
+}
+
+@media (min-width:1440px){
+    .intro-text{
+        font-size: 2.8rem;
+    }
+}
+
+.arrow{
+    width: 150px;
+    justify-self: center;
+    position: relative;
+    animation: bounce 1.5s infinite;
+}
+
+/* Arrow bouncing animation */
+@keyframes bounce {
+    0%   {top: 0px; scale: 1.1;}
+    50%  {top: 40px; scale: 0.9;}
+    100% {top: 0px; scale: 1.1;}
+}
+  
+/* ------------------------------------------- MAIN DIVISION DESIGN ------------------------------------------ */
+.injuries{
+    display: grid;
+    gap: 1.5rem;
+    justify-self: center;
+    grid-template-areas: 
+    'one'
+    'two'
+    'three';
+}
+
+.hr{
+    color: #FD7E22; 
+    width: 80vw; 
+    margin: 5vh 10vw;
+}
+
+.child-1{
+    color: #fd7e22;
+    justify-self: center;
+}
+
+.heading{
+    font-size: 2rem;
+}
+
+.heading:hover{
+    animation: heading-animation 5s infinite;
+}
+
+@keyframes heading-animation{
+    0%{scale: 1;}
+    10%{scale: 1.05;}
+    20%{scale: 1;}
+    30%{scale: 1.05;}
+    40%{scale: 1;}
+    50%{scale: 1.05;}
+    60%{scale: 1;}
+    70%{scale: 1.05;}
+    80%{scale: 1;}
+    90%{scale: 1.05;}
+    100%{scale: 1;}
+}
+
+.child-2{
+    align-self: center;
+    justify-self: center;
+}
+
+.img{
+    max-width: 100%;
+    max-height: 22em;
+}
+
+.child-3{
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+
+.injury:nth-child(1){
+    grid-area: one;
+}
+
+.injury:nth-child(2){
+    grid-area: two;
+}
+
+.injury:nth-child(3){
+    grid-area: three;
+}
+
+.injuries span{
+    color: #ffffff33;
+    background-image: linear-gradient(white, white);
+    background-clip: text;
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    animation: scroll-animation linear forwards;
+    animation-timeline: view();
+}
+
+@keyframes scroll-animation{
+    to{
+        background-size: 200% 200%;
+    }
+}
+
+
+
+
+@media (min-width: 768px){
+    .heading{
+        font-size: 2.5rem;
+    }
+    .img{
+        max-height: 40em;
+    }
+    .child-3{
+        font-size: 2rem;
+    }
+    .injury-section{
+        height: 100vh;
+    }
+}
+
+@media (min-width:1440px){
+    .heading{
+        font-size: 3rem;
+    }
+    .injuries{
+        grid-template-areas: 
+        'one two'
+        'three two'
+        'three two';
+    }
+    .injuries-2{
+        grid-template-areas: 
+        'two one'
+        'two three'
+        'two three';
+    }
+}

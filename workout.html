@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Lift Well - Workout</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Below links are for the designing of the whole website -->
+    <link rel="stylesheet" href="header & Navbar.css">
+    <link rel="stylesheet" href="Workout page/workout.css">
+    <link rel="stylesheet" href="Footer.css">
+
+    <!-- Below links are used to import google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-5,200&display=swap" rel="stylesheet">
+
+    <!-- Below links are used to import and use bootstrap in the website -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- The below link is used to add the Favicon on the page title -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">          
+</head>
+
+<body style="background-color: #0E0F11;">
+    
+  <!-- --------------------------------------------------------------------- NAVIGATION BAR ----------------------------------------------------------------------------- -->
+
+    <nav class="navbar navbar-expand-lg" id="nav" style="padding: 2vh 2vw;">
+      <div class="container-fluid">
+        <a class="navbar-item" href="index.html" style="margin-right: 25px"><img src="Workout page/Main Logo button.png" alt="main logo"></a>
+
+        <button style="background-color: #FD7E22;" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarTogglerDemo01">
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="injury.html">Injuries</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="guidance.html">Guidance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+
+          <a class="navbar-item" href="#"><img src="Workout page/Workout button.png" alt=" Workout page button"></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="scroll-watcher"></div>
+
+  <!-- --------------------------------------------------------------------- MAIN DIVISION ----------------------------------------------------------------------------- --> 
+
+    <div class="first-heading">
+      <p>* Make & download your own plan</p>
+    </div>
+
+    <section class="make-own-plan">
+      
+        <form id="trainingForm">
+          <h3>~ Squat</h3>
+          <div class="form-section">
+            <input class="f" type="number" id="squatSets" placeholder="Sets" required>
+            <input class="f" type="number" id="squatReps" placeholder="Reps" required>
+            <input class="f" type="number" id="squatIntensity" placeholder="Intensity (% of 1RM)" required>
+            <input class="f" type="number" id="squatFrequency" placeholder="Frequency (times/week)" required>
+          </div>
+          
+          <h3>~ Deadlift</h3>
+          <div class="form-section">
+            <input class="f" type="number" id="deadliftSets" placeholder="Sets" required>
+            <input class="f" type="number" id="deadliftReps" placeholder="Reps" required>
+            <input class="f" type="number" id="deadliftIntensity" placeholder="Intensity (% of 1RM)" required>
+            <input class="f" type="number" id="deadliftFrequency" placeholder="Frequency (times/week)" required>
+          </div>
+
+          <h3>~ Bench Press</h3>
+          <div class="form-section">
+            <input class="f" type="number" id="benchPressSets" placeholder="Sets" required>
+            <input class="f" type="number" id="benchPressReps" placeholder="Reps" required>
+            <input class="f" type="number" id="benchPressIntensity" placeholder="Intensity (% of 1RM)" required>
+            <input class="f" type="number" id="benchPressFrequency" placeholder="Frequency (times/week)" required>
+          </div>
+        
+          <button class="ff" type="submit">Generate Plan</button>
+        </form>
+
+        <div style="display: flex; flex-direction: column; gap: 5px; width: 80vw; margin: 5vh 10vw;">
+          <div id="resultTable"></div>
+          <button class="ff" id="downloadButton" style="display: none;"  onclick="downloadTableAsImage()">Download</button>
+        </div>
+        
+        <script>
+          document.getElementById('trainingForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          const squat = {
+            sets: document.getElementById('squatSets').value,
+            reps: document.getElementById('squatReps').value,
+            intensity: document.getElementById('squatIntensity').value,
+            frequency: document.getElementById('squatFrequency').value
+          };
+
+          const deadlift = {
+            sets: document.getElementById('deadliftSets').value,
+            reps: document.getElementById('deadliftReps').value,
+            intensity: document.getElementById('deadliftIntensity').value,
+            frequency: document.getElementById('deadliftFrequency').value
+          };
+
+          const benchPress = {
+            sets: document.getElementById('benchPressSets').value,
+            reps: document.getElementById('benchPressReps').value,
+            intensity: document.getElementById('benchPressIntensity').value,
+            frequency: document.getElementById('benchPressFrequency').value
+          };
+
+          const tableHTML = `
+            <table>
+              <thead>
+                <tr>
+                  <th>Exercise</th>
+                  <th>Volume (Sets x Reps)</th>
+                  <th>Intensity (% of 1RM)</th>
+                  <th>Frequency (times/week)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Squat</td>
+                  <td>${squat.sets} x ${squat.reps}</td>
+                  <td>${squat.intensity}%</td>
+                  <td>${squat.frequency}</td>
+                </tr>
+                <tr>
+                  <td>Deadlift</td>
+                  <td>${deadlift.sets} x ${deadlift.reps}</td>
+                  <td>${deadlift.intensity}%</td>
+                  <td>${deadlift.frequency}</td>
+                </tr>
+                <tr>
+                  <td>Bench Press</td>
+                  <td>${benchPress.sets} x ${benchPress.reps}</td>
+                  <td>${benchPress.intensity}%</td>
+                  <td>${benchPress.frequency}</td>
+                </tr>
+              </tbody>
+            </table>
+          `;
+
+          document.getElementById('resultTable').innerHTML = tableHTML;
+
+          document.getElementById('downloadButton').style.display = 'block';
+
+          });
+
+          function downloadTableAsImage() {
+
+          html2canvas(document.getElementById('resultTable')).then(canvas => {
+
+          let image = canvas.toDataURL('image/png');
+          
+          let link = document.createElement('a');
+          link.download = 'training-plan.png';
+          link.href = image;
+          link.click();
+              });
+          }
+        </script>  
+    
+    </section>
+
+    <hr style="width: 90vw; border: 2px solid #FD7E22; margin: 5vh 5vw;">
+
+    <!-- Squats -->
+    <section class="exercise">
+      <div class="upper-block">
+        <div class="ub-1 ub">
+            <p class="catagory">Squats</p>
+            <p>Description - The squat targets the lower body muscles, including the quadriceps, hamstrings, glutes, and lower back.<br>
+            Benefits - Builds leg strength, enhances core stability, improves overall athleticism.<br>
+            Equipments - Barbell, squat rack or power cage.</p>
+        </div>
+        <div class="ub-2 ub">
+          <img class="img" src="Workout page/Squats.jpg" alt="Squats">
+        </div>
+      </div>
+
+      <div class="lower-block">
+        <div class="lb-1 lb">
+          <p class="catagory">- How to perform a Squat</p>
+          <p>Start with feet shoulder-width apart, barbell resting on your upper back. Descend by bending your hips and knees, keeping your back straight. Lower until thighs are parallel to the ground. Push through heels to return to the starting position.</p>
+        </div>
+        <div class="lb-2 lb">
+          <p class="catagory">Beginner</p>
+          <p><u>Warm Up</u> - Perform dynamic stretches and activation exercises with light to moderate intensity for 5-10 minutes.<br>
+            <u>Main Technique</u> - Start with lighter weights, focusing on proper form and technique. Aim for 3-4 sets of 8-10 repetitions.<br>
+            <u>Cool Down</u> - Perform static stretches and foam rolling exercises with gentle intensity for 5-10 minutes.</p>
+        </div>
+        <div class="lb-3 lb">
+          <p class="catagory">Advance</p>
+          <p><u>Warm Up</u> - Incorporate more dynamic movements and heavier activation exercises with moderate to high intensity for 10-15 minutes.<br>
+            <u>Main Technique</u> - Increase the weight gradually, focusing on lifting heavier loads with proper form. Aim for 4-6 sets of 4-6 repetitions with challenging weights.<br>
+            <u>Cool Down</u> - Use deeper stretches and more intense foam rolling techniques with moderate intensity for 10-15 minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr style="width: 90vw; border:2px solid #FD7E22; margin: 0vh 5vw;">
+
+    <!-- Dead Lift -->
+    <section class="exercise">
+      <div class="upper-block">
+        <div class="ub-1 ub">
+            <p class="catagory">Dead Lifts</p>
+            <p>Description - The deadlift targets the back, hips, glutes, hamstrings, and grip strength.<br>
+            Benefits - Builds total body strength, enhances functional movement patterns.<br>
+            Equipments - Barbell, weight plates.</p>
+        </div>
+        <div class="ub-2 ub">
+          <img class="img" src="Workout page/Deadlift.jpg" alt="Dead Lift">
+        </div>
+      </div>
+
+      <div class="lower-block">
+        <div class="lb-1 lb">
+          <p class="catagory">- How to perform a Dead Lift</p>
+          <p>Stand with feet hip-width apart, grip the barbell with hands shoulder-width apart. Keep your back flat, hinge at the hips, and bend your knees slightly. Lift the barbell by driving through your heels and straightening your hips and knees.</p>
+        </div>
+        <div class="lb-2 lb">
+          <p class="catagory">Beginner</p>
+          <p><u>Warm Up</u> - Start with hip mobility drills and light deadlifts with low to moderate intensity for 5-10 minutes.<br>
+            <u>Main Technique</u> - Begin with lighter weights, focusing on proper form and technique. Aim for 3-4 sets of 8-10 repetitions.<br>
+            <u>Cool Down</u> - Perform gentle lower back stretches and hamstring stretches with low intensity for 5-10 minutes.</p>
+        </div>
+        <div class="lb-3 lb">
+          <p class="catagory">Advance</p>
+          <p><u>Warm Up</u> -  Incorporate more dynamic hip mobility exercises and heavier deadlift warm-ups with moderate to high intensity for 10-15 minutes.<br>
+            <u>Main Technique</u> - Progress to heavier weights, focusing on maximal strength and power. Aim for 4-6 sets of 4-6 repetitions with challenging weights.<br>
+            <u>Cool Down</u> - Use deeper stretches and more intense foam rolling techniques with moderate intensity for 10-15 minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr style="width: 90vw; border: 2px solid #FD7E22; margin: 0vh 5vw;">
+
+    <!-- Bench Press -->
+    <section class="exercise">
+      <div class="upper-block">
+        <div class="ub-1 ub">
+            <p class="catagory">Bench Press</p>
+            <p>Description - The bench press targets the chest, shoulders, and triceps.<br>
+            Benefits - Increases upper body strength, improves pushing power.<br>
+            Equipments - Barbell, bench press bench or flat bench.</p>
+        </div>
+        <div class="ub-2 ub">
+          <img class="img" src="Workout page/Bench press.jpg" alt="Benc Press">
+        </div>
+      </div>
+
+      <div class="lower-block">
+        <div class="lb-1 lb">
+          <p class="catagory">- How to perform a Bench Press</p>
+          <p>Lie on a flat bench, grip the barbell slightly wider than shoulder-width apart. Lower the barbell to your chest, then press it upwards until arms are fully extended.</p>
+        </div>
+        <div class="lb-2 lb">
+          <p class="catagory">Beginner</p>
+          <p><u>Warm Up</u> - Start with shoulder mobility exercises and light push-up variations with low to moderate intensity for 5-10 minutes.<br>
+            <u>Main Technique</u> - Begin with lighter weights, focusing on proper technique and control. Aim for 3-4 sets of 8-10 repetitions.<br>
+            <u>Cool Down</u> - Perform gentle chest stretches and triceps stretches with low intensity for 5-10 minutes.</p>
+        </div>
+        <div class="lb-3 lb">
+          <p class="catagory">Advance</p>
+          <p><u>Warm Up</u> - Incorporate more challenging shoulder mobility drills and heavier push-up variations with moderate to high intensity for 10-15 minutes.<br>
+            <u>Main Technique</u> - Progress to heavier weights, focusing on explosive power and maximal strength. Aim for 4-6 sets of 4-6 repetitions with challenging weights.<br>
+            <u>Cool Down</u> - Use deeper stretches and more intense stretches with moderate intensity for 10-15 minutes.</p>
+        </div>
+      </div>
+    </section>
+
+  <!-- --------------------------------------------------------------------- FOOTER / UP-BUTTON / AFTER FOOTER DESIGN ----------------------------------------------------------------------------- -->
+
+    <div class="footer">
+      <div class="f-1">
+        <div class="f-1-1">
+          <img class="f-1-1-1" src="Injury Page/Instagram logo footer.png" alt="Instagram Logo">
+          <img class="f-1-1-1" src="Injury Page/facebook logo footer.png" alt="Facebook Logo">
+          <img class="f-1-1-1" src="Injury Page/twitter logo footer.png" alt="Twitter Logo">
+          <img class="f-1-1-1" src="Injury Page/linkedin logo footer.png" alt="Linkedin Logo">
+        </div>
+        <div class="f-1-2">
+          <h2>Learn</h2>
+          <h4>Squats</h4>
+          <h4>Dead Lift</h4>
+          <h4>bench Press</h4>
+        </div>
+        <div class="f-1-3">
+          <h2>Explore</h2>
+          <h4>Home</h4>
+          <h4>Injuries</h4>
+          <h4>Contact - Us</h4>
+          <h4>Workout</h4>
+        </div>
+      </div>
+      <div class="f-2">
+        <h2>STAY HEALTHY AND SAFE.</h2>
+      </div>
+    </div>
+
+    <div class="go-up-button">
+      <a href="#nav"><img src="Injury Page/Up Arrow.png" alt="arrow pointing up"></a>
+    </div>
+
+    <div class="after-footer" style="background-color: #0E0F11; width: 100vw;">
+      <div style="height: 1px; background-color: #FD7E22; margin-top: 1vh;"></div>
+      <div style="height: 3px; background-color: #FD7E22; margin-top: 21px;"></div>
+      <div style="height: 5px; background-color: #FD7E22; margin-top: 19px;"></div>
+      <div style="height: 7px; background-color: #FD7E22; margin-top: 17px;"></div>
+      <div style="height: 9px; background-color: #FD7E22; margin-top: 15px;"></div>
+      <div style="height: 11px; background-color: #FD7E22; margin-top: 13px;"></div>
+      <div style="height: 13px; background-color: #FD7E22; margin-top: 11px;"></div>
+      <div style="height: 15px; background-color: #FD7E22; margin-top: 9px;"></div>
+      <div style="height: 17px; background-color: #FD7E22; margin-top: 7px;"></div>
+      <div style="height: 19px; background-color: #FD7E22; margin-top: 5px;"></div>
+      <div style="height: 21px; background-color: #FD7E22; margin-top: 3px;"></div>
+      <div style="height: 200px; background-color: #FD7E22; margin-top: 1px; margin-bottom: 0;"></div>
+    </div>
+
+</body>
+</html>
